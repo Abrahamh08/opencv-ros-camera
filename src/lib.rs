@@ -76,6 +76,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 /// field.
 ///
 /// See the [module-level documentation for more information](index.html).
+#[repr(C)]
 #[derive(Clone, Copy, PartialEq)]
 pub struct RosOpenCvIntrinsics<R: RealField> {
     /// If these intrinsics have zero skew, they are "opencv compatible" and this is `true`.
@@ -107,6 +108,7 @@ impl<R: RealField> From<cam_geom::IntrinsicParametersPerspective<R>> for RosOpen
     }
 }
 
+#[repr(C)]
 #[derive(Debug, Clone, Copy, PartialEq)]
 struct Cache<R: RealField> {
     pnorm: SMatrix<R, 3, 4>,
@@ -535,6 +537,7 @@ fn intrinsics_roundtrip() {
 }
 
 /// Specifies distortion using the Brown-Conrady "plumb bob" model.
+#[repr(C)]
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "serde-serialize", derive(Serialize, Deserialize))]
 pub struct Distortion<R: RealField>(Vector5<R>);
