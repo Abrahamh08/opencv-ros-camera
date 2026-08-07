@@ -763,7 +763,7 @@ impl<'de, R: RealField + serde::Deserialize<'de>> serde::Deserialize<'de>
                     .ok_or_else(|| de::Error::invalid_length(1, &self))?;
                 // Ok(RosOpenCvIntrinsics::from_components(p, k, distortion, rect))
                 RosOpenCvIntrinsics::from_components(p, k, distortion, rect)
-                    .map_err(|e| de::Error::custom(e))
+                    .map_err(de::Error::custom)
             }
 
             fn visit_map<V>(
@@ -811,11 +811,11 @@ impl<'de, R: RealField + serde::Deserialize<'de>> serde::Deserialize<'de>
                     distortion.ok_or_else(|| de::Error::missing_field("distortion"))?;
                 let rect = rect.ok_or_else(|| de::Error::missing_field("rect"))?;
                 RosOpenCvIntrinsics::from_components(p, k, distortion, rect)
-                    .map_err(|e| de::Error::custom(e))
+                    .map_err(de::Error::custom)
             }
         }
 
-        const FIELDS: &'static [&'static str] = &["p", "k", "distortion", "rect"];
+        const FIELDS: &[&str] = &["p", "k", "distortion", "rect"];
         deserializer.deserialize_struct(
             "RosOpenCvIntrinsics",
             FIELDS,

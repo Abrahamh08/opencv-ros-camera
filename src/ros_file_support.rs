@@ -216,5 +216,5 @@ where
     Rd: Read,
 {
     let ros_camera: RosCameraInfo<R> = serde_yaml::from_reader(reader)?;
-    Ok(std::convert::TryInto::try_into(ros_camera)?)
+    std::convert::TryInto::try_into(ros_camera)
 }
